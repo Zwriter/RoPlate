@@ -2,7 +2,7 @@
 
 **Proprietar:** P1. **Folosit de:** P2 (editor, canvas), P3 (simulare, RoPlate), testele.
 
-`Dfa.Core` este un proiect **class library**, fără nicio referință la Avalonia sau la alt framework de interfață. Toate tipurile sunt în namespace-ul `Dfa.Core`. Proiectul are `<Nullable>enable</Nullable>`.
+`Dfa.Core` este un proiect **class library**, fără nicio referință la Avalonia sau la alt framework de interfață. Namespace-urile urmează folderele: `Dfa.Core.Model` (`Dfa`, `TransitionKey`, `Edge`, `SymbolClass`, `OpResult`), `Dfa.Core.Simulation` (`DfaRun`, `DfaStep`, `StepOutcome`, `Verdict`, `RejectReason`, `DfaExtensions`, `BatchTester`, `BatchResult`, `TestResult`, `LanguageGenerator`), `Dfa.Core.Validation` (`DfaValidator`, `ValidationIssue`, `Severity`), `Dfa.Core.Documents` (`DfaDocument`, `DocumentHistory`, `DocumentChangeKind`, `DocumentChangedEventArgs`, `Point2`, `TestCase`), `Dfa.Core.Serialization` (`DfaJson`, `LoadResult`), `Dfa.Core.Examples` (`ExampleCatalog`, `ExampleInfo`). Directivele `using` se scriu **după** linia `namespace …;`, altfel `Dfa` este interpretat ca namespace-ul rădăcină (eroarea CS0118). Proiectul are `<Nullable>enable</Nullable>`.
 
 Mai jos sunt **doar semnăturile publice** și regulile de comportament. Implementarea e liberă.
 

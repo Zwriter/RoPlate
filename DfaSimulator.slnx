@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Dfa.App/Dfa.App.csproj" />
+    <Project Path="src/Dfa.Core/Dfa.Core.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Dfa.Tests/Dfa.Tests.csproj" />
+  </Folder>
+</Solution>
