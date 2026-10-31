@@ -10,7 +10,9 @@ Acest contract definește **cum se leagă panourile între ele**, ca fiecare să
 
 | Aspect | Decizie |
 |---|---|
-| Platformă | .NET 10, **WPF** (Windows). Dacă echipa alege Avalonia, contractul rămâne același; se schimbă doar tipurile de bază (`UserControl`, `DependencyProperty` → `StyledProperty`) |
+| Platformă | .NET 10, **Avalonia** (Windows, Linux, macOS). Fișierele de interfață sunt `.axaml`; proprietățile controalelor proprii sunt `StyledProperty` |
+| Binding-uri | compilate: fiecare view are `x:DataType` setat pe ViewModel-ul lui |
+| Dialoguri | asincrone (în Avalonia ferestrele modale și selectarea fișierelor întorc `Task`); comenzile care le folosesc sunt `[RelayCommand]` pe metode `async Task` |
 | MVVM | `CommunityToolkit.Mvvm`: `ObservableObject`, `[ObservableProperty]`, `[RelayCommand]` |
 | Fără container DI | obiectele se creează manual în `MainViewModel` (secțiunea 7) |
 | Limba | toate textele vizibile sunt în română |
@@ -90,17 +92,17 @@ public interface INavigationService
 
 public interface IDialogService
 {
-    void ShowError(string message);
-    void ShowErrors(string title, IEnumerable<string> messages);
-    void ShowInfo(string message);
-    bool Confirm(string message);                                   // Da / Nu
-    string? AskText(string title, string prompt, string initial = ""); // null = Anulare
-    string? PickOpenFile();                                          // filtru *.dfa.json
-    string? PickSaveFile(string suggestedName);
+    Task ShowErrorAsync(string message);
+    Task ShowErrorsAsync(string title, IEnumerable<string> messages);
+    Task ShowInfoAsync(string message);
+    Task<bool> ConfirmAsync(string message);                                   // Da / Nu
+    Task<string?> AskTextAsync(string title, string prompt, string initial = ""); // null = Anulare
+    Task<string?> PickOpenFileAsync();                                          // filtru *.dfa.json
+    Task<string?> PickSaveFileAsync(string suggestedName);
 }
 ```
 
-Pentru teste și pentru lucrul în paralel, P2 pune la dispoziție din prima zi implementări simple (`MessageBox`), ca P3 să le poată folosi imediat.
+Pentru teste și pentru lucrul în paralel, P2 pune la dispoziție din prima zi implementări simple (o fereastră de mesaj proprie, pentru că Avalonia nu are `MessageBox` încorporat; fișierele se aleg cu `TopLevel.StorageProvider`), ca P3 să le poată folosi imediat.
 
 ---
 
@@ -108,7 +110,7 @@ Pentru teste și pentru lucrul în paralel, P2 pune la dispoziție din prima zi 
 
 `UserControl` în `Dfa.App.Controls`. Desenează `Document` și se redesenează singur la `Document.Changed`.
 
-### Proprietăți (DependencyProperty, legabile din XAML)
+### Proprietăți (StyledProperty, legabile din AXAML)
 
 | Proprietate | Tip | Rol |
 |---|---|---|
@@ -117,7 +119,7 @@ Pentru teste și pentru lucrul în paralel, P2 pune la dispoziție din prima zi 
 | `HighlightedState` | `string?` | starea curentă din simulare |
 | `HighlightKind` | `HighlightKind` | `None`, `Current`, `Accepted`, `Rejected` (culoarea stării evidențiate) |
 | `HighlightedEdge` | `EdgeRef?` | săgeata tocmai parcursă |
-| `SelectedState` | `string?` | starea selectată în editor (two-way) |
+| `SelectedState` | `string?` | starea selectată în editor (two-way: `defaultBindingMode: BindingMode.TwoWay`) |
 
 ```csharp
 namespace Dfa.App.Controls;
@@ -154,7 +156,7 @@ public sealed record EdgeRef(string From, string To);      // o săgeată = o pe
 | ultima săgeată | linie **groasă** + `Brush.EdgeLast` |
 | descriere stare (SI-10) | text mic sub cerc, gri |
 
-### Stiluri comune (`Themes/Styles.xaml`, P2)
+### Stiluri comune (`Themes/Styles.axaml`, P2)
 
 Cheile de resurse folosite de toți: `Brush.StateCurrent`, `Brush.Accepted`, `Brush.Rejected`, `Brush.EdgeLast`, `Brush.MissingCell` (celule goale în tabelul δ), `Brush.TapeRead` (simboluri citite, estompate), `Brush.TapeCursor`.
 
@@ -207,7 +209,7 @@ Când tab-ul activ nu este „Simulare”, fereastra pune `HighlightedState = nu
 ## 7. Cum se asamblează (P2, în `MainViewModel`)
 
 ```csharp
-var dialogs    = new DialogService();
+var dialogs    = new DialogService(owner);   // owner = MainWindow (TopLevel): pentru ShowDialog și StorageProvider
 var session    = new DocumentSession();
 var navigation = new NavigationService(this, session);
 

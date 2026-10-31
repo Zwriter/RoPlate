@@ -2,7 +2,7 @@
 
 **Proprietar:** P1. **Folosit de:** P2 (editor, canvas), P3 (simulare, RoPlate), testele.
 
-`Dfa.Core` este un proiect **class library**, fără nicio referință la WPF/Avalonia. Toate tipurile sunt în namespace-ul `Dfa.Core`. Proiectul are `<Nullable>enable</Nullable>`.
+`Dfa.Core` este un proiect **class library**, fără nicio referință la Avalonia sau la alt framework de interfață. Toate tipurile sunt în namespace-ul `Dfa.Core`. Proiectul are `<Nullable>enable</Nullable>`.
 
 Mai jos sunt **doar semnăturile publice** și regulile de comportament. Implementarea e liberă.
 

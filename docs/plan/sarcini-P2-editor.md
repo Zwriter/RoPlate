@@ -1,6 +1,6 @@
 # Sarcinile P2: fereastra principală, desenul și editorul
 
-**Deții:** `App.xaml`, `MainWindow.xaml`, `Services/**`, `Themes/**`, `Controls/DfaCanvas/**`, `Views/Editor/**`.
+**Deții:** `App.axaml`, `MainWindow.axaml`, `Services/**`, `Themes/**`, `Controls/DfaCanvas/**`, `Views/Editor/**`.
 **Contract pe care îl implementezi:** [03-app-ui.md](contracte/03-app-ui.md) (sesiune, navigare, dialoguri, canvas). **Folosești:** [01-core-api.md](contracte/01-core-api.md).
 
 Până termină P1 motorul (săpt. 1), construiește documentele de test direct în cod; după C-07 folosește `ExampleCatalog`.
@@ -9,14 +9,14 @@ Până termină P1 motorul (săpt. 1), construiește documentele de test direct 
 
 ### E-00 · Stub-urile UI ⚠ blochează pe P1 (C-11) și P3
 - **Săpt.:** 1 (ziua 2–3) · **Depinde de:** C-00
-- Scrie `DocumentSession`, `INavigationService`, `IDialogService` (+ `DialogService` simplu cu `MessageBox`), enum-urile și `EdgeRef` din contractul 3, și un `DfaCanvas` gol care are deja toate proprietățile și evenimentele.
+- Scrie `DocumentSession`, `INavigationService`, `IDialogService` (+ `DialogService` simplu: o fereastră de mesaj proprie și `StorageProvider` pentru fișiere), enum-urile și `EdgeRef` din contractul 3, și un `DfaCanvas` gol care are deja toate proprietățile și evenimentele.
 - Adaugă `CommunityToolkit.Mvvm`.
 - **Gata când:** P3 poate scrie `SimulatorViewModel(DocumentSession, IDialogService)` și îl poate lega de un `DfaCanvas` (chiar dacă acesta încă nu desenează nimic).
 
 ### E-01 · Fereastra principală și meniurile
 - **Săpt.:** 1–2 · **Cerințe:** ED-07 · **Depinde de:** E-00 (meniurile Open/Save după C-06)
 - Aspectul din contractul 3 (canvas stânga, tab-uri dreapta, bara de stare), cu „În lucru” în locul panourilor neterminate.
-- Meniul **Fișier**: Nou, Deschide, Salvează, Salvează ca. Erorile de încărcare apar toate, cu `ShowErrors`. Întrebare „Salvați modificările?” când `IsDirty`.
+- Meniul **Fișier**: Nou, Deschide, Salvează, Salvează ca. Erorile de încărcare apar toate, cu `ShowErrorsAsync`. Întrebare „Salvați modificările?” când `IsDirty`.
 - Meniul **Exemple**: generat din `ExampleCatalog.All`.
 - Meniul **Aplicații ▸ RoPlate** ⇒ `INavigationService.ShowRoPlate()`.
 - Titlul ferestrei: `{nume} — Simulator AFD`, cu `*` când sunt modificări nesalvate.
@@ -45,8 +45,8 @@ Până termină P1 motorul (săpt. 1), construiește documentele de test direct 
 - Clic pe zona goală ⇒ `AddState(position)`.
 - Drag & drop ⇒ mutare vizuală în timpul tragerii; `MoveState` **doar la eliberarea mouse-ului** (un singur pas de undo).
 - Selecție + tasta Delete ⇒ `RemoveState` / `RemoveEdge`.
-- Meniu contextual pe stare: Stare inițială, Stare finală (bifă), Redenumește (`AskText`), Șterge.
-- Tranziție: Shift + tragere de la o stare la alta (sau la ea însăși) ⇒ `AskText("Simboluri", "ex: a,b")` ⇒ `AddTransitions`. Dacă primești `OpResult` cu eroare, afișezi mesajul (ex. „Din q0 există deja o tranziție pe «a» către q1”).
+- Meniu contextual pe stare: Stare inițială, Stare finală (bifă), Redenumește (`AskTextAsync`), Șterge.
+- Tranziție: Shift + tragere de la o stare la alta (sau la ea însăși) ⇒ `AskTextAsync("Simboluri", "ex: a,b")` ⇒ `AddTransitions`. Dacă primești `OpResult` cu eroare, afișezi mesajul (ex. „Din q0 există deja o tranziție pe «a» către q1”).
 - Dublu-clic pe o săgeată ⇒ editarea simbolurilor ei.
 
 ### E-04 · Alfabetul și clasele de simboluri

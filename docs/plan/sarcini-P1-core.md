@@ -9,7 +9,7 @@ Ești primul de care depind ceilalți, așa că **C-00 se face în primele 1–2
 
 ### C-00 · Soluția și stub-urile contractului ⚠ blochează pe toți
 - **Săpt.:** 1 (ziua 1–2) · **Depinde de:** nimic
-- Creează `DfaSimulator.slnx` cu `Dfa.Core` (class library), `Dfa.App` (WPF), `Dfa.Tests` (xUnit + Shouldly) și referințele dintre ele.
+- Creează `DfaSimulator.slnx` cu `Dfa.Core` (class library), `Dfa.App` (Avalonia, din șablonul `avalonia.app`), `Dfa.Tests` (xUnit + Shouldly) și referințele dintre ele.
 - Activează `<Nullable>enable</Nullable>` peste tot.
 - Scrie **toate tipurile publice** din contractul 1, cu corpul `throw new NotImplementedException()` (record-urile și enum-urile se scriu complet).
 - **Gata când:** soluția compilează, P2 și P3 pot scrie cod care apelează motorul.

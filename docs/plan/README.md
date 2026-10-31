@@ -48,9 +48,9 @@ src/
 │     ├─ par-a.dfa.json … lungime-3.dfa.json         P1
 │     └─ nr-inmatriculare.dfa.json                   P3
 └─ Dfa.App/
-   ├─ App.xaml, MainWindow.xaml                      P2
+   ├─ App.axaml, MainWindow.axaml                    P2
    ├─ Services/ (DocumentSession, Navigation)        P2
-   ├─ Themes/Styles.xaml (culori comune)             P2
+   ├─ Themes/Styles.axaml (culori comune)            P2
    ├─ Controls/DfaCanvas/                            P2
    ├─ Views/Editor/                                  P2
    ├─ Views/TransitionTable/                         P1
