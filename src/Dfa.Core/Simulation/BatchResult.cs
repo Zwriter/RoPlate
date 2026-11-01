@@ -6,5 +6,5 @@ public sealed record BatchResult(IReadOnlyList<TestResult> Results)
 
     public int Total => Results.Count;
 
-    public string Summary => $"{Passed} din {Total} corecte";
+    public string Summary => $"{Passed} of {Total} correct";
 }

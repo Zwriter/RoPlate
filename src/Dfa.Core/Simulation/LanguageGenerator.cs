@@ -4,7 +4,7 @@ using Dfa.Core.Model;
 
 public static class LanguageGenerator
 {
-    // Primele n cuvinte acceptate, în ordinea lungimii; pentru o clasă se folosește primul ei caracter.
+    // The first n accepted words, by length; for a class, its first character is used.
     public static IReadOnlyList<string> FirstAccepted(Dfa dfa, int count, int maxLength = 12) =>
         throw new NotImplementedException();
 }

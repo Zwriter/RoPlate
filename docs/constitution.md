@@ -1,16 +1,16 @@
 <!--
 Sync Impact Report
-- Version: 1.1.1 (Forma) -> 1.0.0 (RoPlate, first adoption)
-- Adapted from the Forma constitution; stack changed from Python/React/Tauri to .NET 10 / C# / Avalonia.
+- Version: 1.0.0 -> 2.0.0 (MAJOR: the project language requirement is reversed)
+- Reason: the team switched the project language from Romanian to English.
 - Modified principles:
-  - II. Object-Oriented Backend Design -> II. Object-Oriented, UI-Independent Engine
-  - IV. Modern, Responsive, Usable Frontend -> III. Clear, Usable Avalonia Interface (MVVM)
-  - VI. PEP 8 Compliance -> V. .NET Coding Conventions
-  - VII. Human-Readable Formatting (Prettier/Ruff -> .editorconfig / dotnet format) -> VI.
-- Removed principles: Backend Test-Driven Development (engine test requirements kept in Quality Gates)
-- Added sections: Contracts and Ownership (within Architecture and Scope Constraints)
-- Removed constraints: IPC, CORS, large datasets, `app/` folder (not applicable)
-- Follow-up TODOs: add `.editorconfig` and confirm analyzer settings during C-00.
+  - II. Object-Oriented, UI-Independent Engine: `OpResult` / `LoadResult` messages are in English.
+  - III. Clear, Usable Avalonia Interface (MVVM): visible text, documentation and messages are in English.
+- Modified sections: Architecture (`nr-inmatriculare.dfa.json` -> `license-plate.dfa.json`),
+  Contracts and Ownership (`docs/plan/contracte/` -> `docs/plan/contracts/`),
+  Workflow (example branch `p3/s-02-banda` -> `p3/s-02-tape`).
+- Migration: contracts, plan and task files translated and renamed; contract messages and example
+  ids translated; Romanian messages in `Dfa.Core` and its tests replaced.
+- Follow-up TODOs: the theory docs (`docs/theory/`) are linked but not in the repository yet.
 -->
 
 # RoPlate Constitution
@@ -34,7 +34,7 @@ invariants (for example, determinism of δ is guaranteed by its `TransitionKey` 
 inheritance MUST be used only when a true substitutable relationship exists. `Dfa.Core` MUST
 remain a class library with no reference to Avalonia or any other UI framework, so it can be
 tested and reused without the interface. Operations that can fail because of user input MUST
-return `OpResult` / `LoadResult` with a Romanian message ready for display; exceptions are
+return `OpResult` / `LoadResult` with an English message ready for display; exceptions are
 reserved for programming errors.
 
 ### III. Clear, Usable Avalonia Interface (MVVM)
@@ -45,8 +45,8 @@ MUST modify the automaton only through `DfaDocument`. User flows MUST follow est
 principles: clear hierarchy, predictable navigation, accessible controls, visible operation
 states, actionable error messages, keyboard support, and no freezing on invalid data. States
 and verdicts MUST NOT be conveyed by color alone (use thickness, double circles, ✓ / ✗).
-All visible text MUST be in Romanian, and messages defined in the contracts MUST be used
-verbatim. UI changes MUST be checked at the supported window sizes.
+All visible text, documentation and messages MUST be in English, and messages defined in the
+contracts MUST be used verbatim. UI changes MUST be checked at the supported window sizes.
 
 ### IV. Small, Reusable, Non-Duplicated Code
 
@@ -84,7 +84,7 @@ behavior changes.
 The solution MUST keep the layout defined in `docs/plan/README.md`: `src/Dfa.Core` (engine,
 class library), `src/Dfa.App` (Avalonia application on .NET 10), and `tests/Dfa.Tests` (xUnit).
 Dependencies flow one way: `Dfa.App` and `Dfa.Tests` reference `Dfa.Core`, never the reverse.
-Example automata, including `nr-inmatriculare.dfa.json`, MUST live in `Dfa.Core/Examples/` as
+Example automata, including `license-plate.dfa.json`, MUST live in `Dfa.Core/Examples/` as
 embedded resources so tests can load them without the UI. Objects are composed manually in
 `MainViewModel`; no DI container is introduced without a contract change. Loading a file MUST
 never throw on malformed input: errors are reported through `LoadResult`. Processing is
@@ -92,7 +92,7 @@ local-only, and source files are never modified unless the user saves.
 
 ### Contracts and Ownership
 
-The contracts in `docs/plan/contracte/` (engine API, `.dfa.json` format, UI) are the
+The contracts in `docs/plan/contracts/` (engine API, `.dfa.json` format, UI) are the
 authoritative interface between team members. Public signatures, behavior rules, and messages
 MUST match them. A contract changes only through a pull request that also updates the
 corresponding `.md` file and is approved by the other two team members. Every folder has one
@@ -102,7 +102,7 @@ owner. Until a dependency is ready, consumers work against stubs or data built i
 ## Development Workflow and Quality Gates
 
 `main` MUST always build and pass all tests. Each task is developed on its own branch
-(`p1/c-03-dfarun`, `p2/e-02-canvas`, `p3/s-02-banda`) and merged through a small pull request
+(`p1/c-03-dfarun`, `p2/e-02-canvas`, `p3/s-02-tape`) and merged through a small pull request
 reviewed by at least one other team member. Before opening a pull request, `dotnet build`,
 `dotnet test`, and `dotnet format --verify-no-changes` MUST succeed. Every change MUST identify
 its affected layer and verify the relevant constitution principles. New `Dfa.Core` behavior,
@@ -128,4 +128,4 @@ exceptions. The team MUST review this constitution whenever architecture, the UI
 testing policy, or quality gates materially change. Unresolved governance gaps MUST be recorded
 as explicit TODOs rather than silently ignored.
 
-**Version**: 1.0.0 | **Ratified**: 2026-10-31 | **Last Amended**: 2026-10-31
+**Version**: 2.0.0 | **Ratified**: 2026-10-31 | **Last Amended**: 2026-11-01
