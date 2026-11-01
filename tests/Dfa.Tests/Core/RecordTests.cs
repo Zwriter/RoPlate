@@ -16,7 +16,7 @@ public class RecordTests
             new TestResult(new TestCase("b", false), true, ""),
         };
 
-        new BatchResult(results).Summary.ShouldBe("1 din 2 corecte");
+        new BatchResult(results).Summary.ShouldBe("1 of 2 correct");
     }
 
     [Fact]

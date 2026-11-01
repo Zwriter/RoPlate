@@ -1,56 +1,54 @@
-# Planul echipei: RoPlate / Simulator AFD
+# Team plan: RoPlate / DFA Simulator
 
-Echipă de 3 persoane, 5 săptămâni. Scopul acestui plan: **fiecare poate lucra în paralel, fără să-l aștepte pe celălalt**, pentru că punctele de contact dintre părți (**contractele**) sunt stabilite de la început.
-
-> Înainte de cod, citiți teoria: [../teorie/README.md](../teorie/README.md).
+A team of 3. The goal of this plan: **everyone can work in parallel without waiting for the others**, because the points of contact between the parts (the **contracts**) are fixed from the start.
 
 ---
 
-## 1. Rolurile
+## 1. Roles
 
-| Persoană | Rol | Ce deține | Sarcini |
+| Person | Role | Owns | Tasks |
 |---|---|---|---|
-| **P1** | Motorul (Core) | `Dfa.Core` + testele lui + tabelul δ din interfață | [sarcini-P1-core.md](sarcini-P1-core.md) |
-| **P2** | Editorul și fereastra principală | fereastra, meniurile, desenul automatului (`DfaCanvas`), editarea | [sarcini-P2-editor.md](sarcini-P2-editor.md) |
-| **P3** | Simularea și RoPlate | panoul de simulare, banda, tabelul de execuție, testarea în lot, automatul A1, ecranul RoPlate | [sarcini-P3-simulare-roplate.md](sarcini-P3-simulare-roplate.md) |
+| **P1** | The engine (Core) | `Dfa.Core` + its tests + the δ table in the UI | [tasks-P1-core.md](tasks-P1-core.md) |
+| **P2** | The editor and the main window | the window, the menus, the automaton drawing (`DfaCanvas`), editing | [tasks-P2-editor.md](tasks-P2-editor.md) |
+| **P3** | Simulation and RoPlate | the simulation panel, the tape, the execution table, batch testing, automaton A1, the RoPlate screen | [tasks-P3-simulation-roplate.md](tasks-P3-simulation-roplate.md) |
 
-Înlocuiți P1/P2/P3 cu numele voastre. Specificația spune „1–2 studenți”; verificați cu profesorul că 3 este în regulă.
+Replace P1/P2/P3 with your names. The specification says "1–2 students"; check with the teacher that 3 is fine.
 
 ---
 
-## 2. Contractele
+## 2. The contracts
 
-Un **contract** = ce oferă o parte celorlalte: numele claselor, metodele, ce returnează, ce mesaje afișează, formatul fișierelor. Cât timp contractul nu se schimbă, fiecare își poate modifica liber implementarea.
+A **contract** = what one part offers the others: class names, methods, what they return, what messages they show, the file format. As long as the contract does not change, everyone can freely change their implementation.
 
-| Contract | Fișier | Cine îl implementează | Cine îl folosește |
+| Contract | File | Implemented by | Used by |
 |---|---|---|---|
-| API-ul motorului | [contracte/01-core-api.md](contracte/01-core-api.md) | P1 | P2, P3 |
-| Formatul `.dfa.json` | [contracte/02-format-json.md](contracte/02-format-json.md) | P1 (citire/scriere) | toți (P3 scrie automatul A1 de mână) |
-| Interfața grafică (sesiune, canvas, panouri, navigare) | [contracte/03-app-ui.md](contracte/03-app-ui.md) | P2 (sesiune, canvas, fereastră), P3 (panouri) | toți |
+| Engine API | [contracts/01-core-api.md](contracts/01-core-api.md) | P1 | P2, P3 |
+| The `.dfa.json` format | [contracts/02-json-format.md](contracts/02-json-format.md) | P1 (reading/writing) | everyone (P3 writes automaton A1 by hand) |
+| The UI (session, canvas, panels, navigation) | [contracts/03-app-ui.md](contracts/03-app-ui.md) | P2 (session, canvas, window), P3 (panels) | everyone |
 
-### Regula de aur
+### The golden rule
 
-1. **Ziua 1–2:** P1 creează soluția și pune în `Dfa.Core` **toate clasele publice din contract, cu metodele goale** (`throw new NotImplementedException()`). P2 creează la fel stub-urile din contractul UI. Codul compilează, deci toți pot începe.
-2. Contractul se **modifică doar printr-un PR** care schimbă și fișierul `.md` din `docs/plan/contracte/`, aprobat de **ceilalți doi**.
-3. Până când o parte e gata, cine o folosește lucrează cu **date false** (de ex. un automat construit direct în cod).
+1. **Days 1–2:** P1 creates the solution and puts **all the public classes from the contract, with empty methods** (`throw new NotImplementedException()`), in `Dfa.Core`. P2 does the same for the UI contract stubs. The code compiles, so everyone can start.
+2. A contract **changes only through a PR** that also changes the `.md` file in `docs/plan/contracts/`, approved by **the other two**.
+3. Until a part is ready, whoever uses it works with **fake data** (e.g. an automaton built directly in code).
 
 ---
 
-## 3. Cine ce foldere deține
+## 3. Who owns which folders
 
-Fiecare fișier are un singur „proprietar”. Ceilalți îl pot citi, dar îl modifică doar prin PR aprobat de proprietar. Așa evitați conflictele de merge.
+Each file has a single "owner". The others can read it, but change it only through a PR approved by the owner. This avoids merge conflicts.
 
 ```
 DfaSimulator.slnx                                    P1
 src/
 ├─ Dfa.Core/                                         P1
 │  └─ Examples/
-│     ├─ par-a.dfa.json … lungime-3.dfa.json         P1
-│     └─ nr-inmatriculare.dfa.json                   P3
+│     ├─ even-a.dfa.json … length-3.dfa.json         P1
+│     └─ license-plate.dfa.json                      P3
 └─ Dfa.App/
    ├─ App.axaml, MainWindow.axaml                    P2
    ├─ Services/ (DocumentSession, Navigation)        P2
-   ├─ Themes/Styles.axaml (culori comune)            P2
+   ├─ Themes/Styles.axaml (shared colors)            P2
    ├─ Controls/DfaCanvas/                            P2
    ├─ Views/Editor/                                  P2
    ├─ Views/TransitionTable/                         P1
@@ -60,60 +58,60 @@ src/
 tests/Dfa.Tests/
 ├─ Core/                                             P1
 └─ RealApps/                                         P3
-docs/plan/contracte/                                 toți (PR cu 2 aprobări)
+docs/plan/contracts/                                 everyone (PR with 2 approvals)
 ```
 
-> Diferență față de specificație: exemplele `.dfa.json` stau în **Dfa.Core** (ca resurse încorporate), nu în Dfa.App. Așa le pot încărca și testele, fără interfață.
+> Difference from the specification: the `.dfa.json` examples live in **Dfa.Core** (as embedded resources), not in Dfa.App. That way the tests can load them too, without the UI.
 
 ---
 
-## 4. Calendarul
+## 4. Schedule
 
-| Săpt. | P1: Core | P2: Editor | P3: Simulare + RoPlate | Punct de integrare (toți) |
+| Week | P1: Core | P2: Editor | P3: Simulation + RoPlate | Integration point (everyone) |
 |---|---|---|---|---|
-| **1** | C-00 contracte, C-01…C-04 (model, clase de simboluri, rulare, validator) | E-00 stub-uri UI, E-01 fereastra, meniuri | R-01 automatul A1 scris de mână în JSON + testele lui; S-01 ViewModel simulare (pe un `Dfa` construit în cod) | **M1:** contractele intră în `main`; testele motorului pe exemplele 1–6 sunt verzi |
-| **2** | C-05…C-07 (document, JSON, exemple) | E-02 desenarea automatului, E-05 evidențiere | S-02 banda, S-03 tabel execuție, S-04 verdict | **M2:** se deschide un exemplu din meniu și apare desenat |
-| **3** | C-08 testare în lot, C-09 undo/redo, C-10 capcană | E-03 editarea pe desen, E-04 alfabet și clase | S-05 Play, S-06 evidențierea pe desen | **M3:** simulare completă pe exemplele 1–3, cu animație pe desen |
-| **4** | C-11 tabelul δ, C-12 acoperire teste ≥ 70% | E-06 undo/redo + capcană în UI, E-07 descrieri stări | S-07 panou testare în lot, S-08 modul „Ghicește”, R-01 automatul A1 aranjat în editor | **M4:** automatul A1 trece toate cuvintele de test în aplicație |
-| **5** | C-13 (bonus generator), raport | E-08 (bonus export PNG/SVG), finisare | R-02 ecranul RoPlate, R-03 (bonus coduri reale de județ) | **M5:** prezentarea finală, README, raport |
+| **1** | C-00 contracts, C-01…C-04 (model, symbol classes, run, validator) | E-00 UI stubs, E-01 window, menus | R-01 automaton A1 written by hand in JSON + its tests; S-01 simulation ViewModel (on a `Dfa` built in code) | **M1:** the contracts are in `main`; the engine tests on examples 1–6 are green |
+| **2** | C-05…C-07 (document, JSON, examples) | E-02 drawing the automaton, E-05 highlighting | S-02 tape, S-03 execution table, S-04 verdict | **M2:** an example opens from the menu and appears drawn |
+| **3** | C-08 batch testing, C-09 undo/redo, C-10 trap state | E-03 editing on the drawing, E-04 alphabet and classes | S-05 Play, S-06 highlighting on the drawing | **M3:** full simulation on examples 1–3, animated on the drawing |
+| **4** | C-11 the δ table, C-12 test coverage ≥ 70% | E-06 undo/redo + trap state in the UI, E-07 state descriptions | S-07 batch testing panel, S-08 "Guess" mode, R-01 automaton A1 laid out in the editor | **M4:** automaton A1 passes all test words in the app |
+| **5** | C-13 (bonus generator), report | E-08 (bonus PNG/SVG export), polish | R-02 the RoPlate screen, R-03 (bonus real county codes) | **M5:** final presentation, README, report |
 
-Detaliile fiecărei sarcini (ce face, de ce depinde, când e „gata”) sunt în fișierele de sarcini.
+The details of each task (what it does, what it depends on, when it is "done") are in the task files.
 
-### Dependențele importante
+### Key dependencies
 
 ```mermaid
 flowchart LR
-    C00[C-00 contracte Core] --> E00[E-00 stub-uri UI]
-    C00 --> S01[S-01 ViewModel simulare]
-    C00 --> R01[R-01 automat A1]
+    C00[C-00 Core contracts] --> E00[E-00 UI stubs]
+    C00 --> S01[S-01 simulation ViewModel]
+    C00 --> R01[R-01 automaton A1]
     C03[C-03 DfaRun] --> S01
-    C06[C-06 JSON] --> E01[E-01 meniuri Open/Save]
+    C06[C-06 JSON] --> E01[E-01 Open/Save menus]
     C06 --> R01
-    E02[E-02 desen] --> E03[E-03 editare]
-    E05[E-05 evidențiere] --> S06[S-06 animație pe desen]
-    C08[C-08 BatchTester] --> S07[S-07 panou lot]
+    E02[E-02 drawing] --> E03[E-03 editing]
+    E05[E-05 highlighting] --> S06[S-06 animation on the drawing]
+    C08[C-08 BatchTester] --> S07[S-07 batch panel]
     C09[C-09 DocumentHistory] --> E06[E-06 undo/redo UI]
-    R01 --> R02[R-02 ecran RoPlate]
+    R01 --> R02[R-02 RoPlate screen]
     S01 --> R02
 ```
 
-Singurele blocaje reale sunt **C-00** (primele 1–2 zile, toți îl așteaptă) și **E-05** (P3 are nevoie de evidențierea pe desen în săptămâna 3). Până atunci P3 testează simularea fără desen (banda + tabelul de execuție).
+The only real blockers are **C-00** (the first 1–2 days, everyone waits for it) and **E-05** (P3 needs highlighting on the drawing in week 3). Until then P3 tests the simulation without the drawing (the tape + the execution table).
 
 ---
 
-## 5. Cum lucrați cu Git
+## 5. How to work with Git
 
-- `main` conține mereu cod care **compilează și trece testele**.
-- Fiecare sarcină = o ramură: `p1/c-03-dfarun`, `p2/e-02-canvas`, `p3/s-02-banda`.
-- PR-uri mici (o sarcină), revizuite de **cel puțin o altă persoană**.
-- Înainte de PR: `dotnet build` și `dotnet test` fără erori.
-- Mesajele din interfață sunt **în română**; numele claselor și metodelor sunt în engleză (ca în specificație).
-- Fiecare commit are autorul corect: README-ul final trebuie să arate contribuția fiecăruia.
+- `main` always holds code that **compiles and passes the tests**.
+- Each task = one branch: `p1/c-03-dfarun`, `p2/e-02-canvas`, `p3/s-02-tape`.
+- Small PRs (one task), reviewed by **at least one other person**.
+- Before a PR: `dotnet build` and `dotnet test` with no errors.
+- UI text, messages, docs and identifiers are **in English**.
+- Every commit has the correct author: the final README must show each person's contribution.
 
-## 6. Ce este „gata” (pentru orice sarcină)
+## 6. What "done" means (for any task)
 
-- [ ] Codul compilează și testele trec.
-- [ ] Respectă contractul (nume, semnături, mesaje).
-- [ ] Are teste, dacă e cod în `Dfa.Core`.
-- [ ] Nu blochează aplicația la date greșite (afișează mesaj).
-- [ ] A fost revizuit și intrat în `main`.
+- [ ] The code compiles and the tests pass.
+- [ ] It follows the contract (names, signatures, messages).
+- [ ] It has tests, if it is code in `Dfa.Core`.
+- [ ] It does not freeze the app on bad data (it shows a message).
+- [ ] It was reviewed and merged into `main`.

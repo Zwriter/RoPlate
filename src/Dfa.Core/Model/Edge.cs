@@ -1,4 +1,4 @@
 namespace Dfa.Core.Model;
 
-// O săgeată de pe desen: toate simbolurile care duc din From în To
+// One arrow in the drawing: all symbols leading from From to To
 public sealed record Edge(string From, string To, IReadOnlyList<string> Symbols);

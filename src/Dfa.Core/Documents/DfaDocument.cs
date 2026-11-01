@@ -51,7 +51,7 @@ public sealed class DfaDocument
 
     public OpResult RemoveEdge(string from, string to) => throw new NotImplementedException();
 
-    public OpResult CompleteWithTrap(Point2 position, string name = "capcană") =>
+    public OpResult CompleteWithTrap(Point2 position, string name = "trap") =>
         throw new NotImplementedException();
 
     public void SetTests(IEnumerable<TestCase> tests) => throw new NotImplementedException();
@@ -60,5 +60,5 @@ public sealed class DfaDocument
 
     public void RestoreFrom(DfaDocument snapshot) => throw new NotImplementedException();
 
-    public static DfaDocument CreateEmpty(string name = "Automat nou") => throw new NotImplementedException();
+    public static DfaDocument CreateEmpty(string name = "New automaton") => throw new NotImplementedException();
 }
