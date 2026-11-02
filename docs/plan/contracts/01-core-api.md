@@ -105,6 +105,7 @@ public sealed class Dfa
 | overlapping classes | `Character '{c}' already belongs to class '{other}'.` |
 | removing a used symbol | `Symbol '{symbol}' is used in {n} transitions. Remove them first.` |
 | removing a missing transition | `From {from} there is no transition on '{symbol}'.` |
+| removing a missing arrow (`DfaDocument.RemoveEdge`) | `From {from} there is no transition to {to}.` |
 
 ---
 
