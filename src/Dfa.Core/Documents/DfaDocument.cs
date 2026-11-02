@@ -143,8 +143,32 @@ public sealed class DfaDocument
         return Raise(OpResult.Success, DocumentChangeKind.Structure);
     }
 
-    public OpResult CompleteWithTrap(Point2 position, string name = "trap") =>
-        throw new NotImplementedException();
+    public OpResult CompleteWithTrap(Point2 position, string name = "trap")
+    {
+        if (!_dfa.States.Any(state => _dfa.Alphabet.Any(symbol => _dfa.Next(state, symbol) is null)))
+        {
+            return OpResult.Fail("The automaton is already complete.");
+        }
+
+        var result = _dfa.AddState(name);
+        if (!result.Ok)
+        {
+            return result;
+        }
+
+        _layout[name] = position;
+
+        // The trap is in States now, so it also gets its own loops.
+        foreach (var state in _dfa.States)
+        {
+            foreach (var symbol in _dfa.Alphabet.Where(symbol => _dfa.Next(state, symbol) is null))
+            {
+                _dfa.AddTransition(state, symbol, name);
+            }
+        }
+
+        return Raise(OpResult.Success, DocumentChangeKind.Structure);
+    }
 
     public void SetTests(IEnumerable<TestCase> tests)
     {
