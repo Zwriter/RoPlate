@@ -50,7 +50,6 @@ You are the first one the others depend on, so **C-00 is done in the first 1–2
 ### C-07 · `ExampleCatalog` + examples 1–6
 - **Week:** 2 · **Requirements:** ED-07 · **Depends on:** C-06
 - Write `even-a`, `starts-a` (with a trap state), `ends-ab`, `contains-aba`, `div3`, `length-3` in `Dfa.Core/Examples/`, as **EmbeddedResource**, with nice positions, a description for every state and the test words from the specification.
-- The theory for each example is in [../theory/03-designing-a-dfa.md](../theory/03-designing-a-dfa.md).
 - **Tests:** every example loads without errors and passes its own tests (`BatchTester`).
 
 ### C-08 · `BatchTester`

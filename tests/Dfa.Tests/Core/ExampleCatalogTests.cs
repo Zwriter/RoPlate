@@ -35,10 +35,9 @@ public class ExampleCatalogTests
     {
         var doc = ExampleCatalog.Load(id);
 
-        foreach (var test in doc.Tests)
-        {
-            doc.Dfa.Accepts(test.Word).ShouldBe(test.Expected, $"word \"{test.Word}\"");
-        }
+        var result = BatchTester.Run(doc.Dfa, doc.Tests);
+
+        result.Results.Where(r => !r.Passed).Select(r => r.Case.Word).ShouldBeEmpty();
     }
 
     [Fact]
