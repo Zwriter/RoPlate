@@ -4,5 +4,6 @@ using Dfa.Core.Model;
 
 public static class DfaExtensions
 {
-    public static bool Accepts(this Dfa dfa, string input) => throw new NotImplementedException();
+    public static bool Accepts(this Dfa dfa, string input) =>
+        new DfaRun(dfa, input).FinalVerdict == Verdict.Accepted;
 }
