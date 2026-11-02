@@ -1,0 +1,38 @@
+{
+  "format": "dfa-simulator",
+  "version": 1,
+  "name": "Ends in ab",
+  "alphabet": ["a", "b"],
+  "symbolClasses": [],
+  "states": ["s0", "s1", "s2"],
+  "start": "s0",
+  "finals": ["s2"],
+  "transitions": [
+    { "from": "s0", "symbol": "a", "to": "s1" },
+    { "from": "s0", "symbol": "b", "to": "s0" },
+    { "from": "s1", "symbol": "a", "to": "s1" },
+    { "from": "s1", "symbol": "b", "to": "s2" },
+    { "from": "s2", "symbol": "a", "to": "s1" },
+    { "from": "s2", "symbol": "b", "to": "s0" }
+  ],
+  "layout": {
+    "s0": { "x": 150, "y": 200 },
+    "s1": { "x": 400, "y": 200 },
+    "s2": { "x": 650, "y": 200 }
+  },
+  "descriptions": {
+    "s0": "the word does not end in a or ab",
+    "s1": "the last letter was a",
+    "s2": "the last letters were ab"
+  },
+  "tests": [
+    { "word": "ab", "expected": true },
+    { "word": "aab", "expected": true },
+    { "word": "bab", "expected": true },
+    { "word": "abab", "expected": true },
+    { "word": "", "expected": false },
+    { "word": "a", "expected": false },
+    { "word": "ba", "expected": false },
+    { "word": "abb", "expected": false }
+  ]
+}

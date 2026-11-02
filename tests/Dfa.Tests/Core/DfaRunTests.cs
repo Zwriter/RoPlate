@@ -6,30 +6,6 @@ using Shouldly;
 
 public class DfaRunTests
 {
-    public static TheoryData<string, string, bool> ExampleWords => new()
-    {
-        { "even-a", "", true }, { "even-a", "b", true }, { "even-a", "aa", true }, { "even-a", "abba", true },
-        { "even-a", "a", false }, { "even-a", "bab", false },
-        { "starts-a", "a", true }, { "starts-a", "ab", true }, { "starts-a", "abba", true },
-        { "starts-a", "", false }, { "starts-a", "b", false }, { "starts-a", "ba", false },
-        { "ends-ab", "ab", true }, { "ends-ab", "aab", true }, { "ends-ab", "bab", true }, { "ends-ab", "abab", true },
-        { "ends-ab", "", false }, { "ends-ab", "a", false }, { "ends-ab", "ba", false }, { "ends-ab", "abb", false },
-        { "contains-aba", "aba", true }, { "contains-aba", "aaba", true }, { "contains-aba", "babab", true },
-        { "contains-aba", "abaa", true }, { "contains-aba", "", false }, { "contains-aba", "ab", false },
-        { "contains-aba", "abba", false }, { "contains-aba", "bbb", false },
-        { "div3", "0", true }, { "div3", "11", true }, { "div3", "110", true }, { "div3", "1001", true },
-        { "div3", "1", false }, { "div3", "10", false }, { "div3", "100", false },
-        { "length-3", "", true }, { "length-3", "aaa", true }, { "length-3", "abbaba", true },
-        { "length-3", "a", false }, { "length-3", "ab", false }, { "length-3", "abab", false },
-    };
-
-    [Theory]
-    [MemberData(nameof(ExampleWords))]
-    public void Examples_AcceptExactlyTheirLanguage(string example, string word, bool accepted)
-    {
-        Example(example).Accepts(word).ShouldBe(accepted);
-    }
-
     [Fact]
     public void EmptyWord_HasNoStepsAndDependsOnStartState()
     {
@@ -195,15 +171,4 @@ public class DfaRunTests
 
         changes.ShouldBe(0);
     }
-
-    private static Dfa Example(string id) => id switch
-    {
-        "even-a" => TestAutomata.EvenA(),
-        "starts-a" => TestAutomata.StartsA(),
-        "ends-ab" => TestAutomata.EndsAb(),
-        "contains-aba" => TestAutomata.ContainsAba(),
-        "div3" => TestAutomata.Div3(),
-        "length-3" => TestAutomata.Length3(),
-        _ => throw new ArgumentOutOfRangeException(nameof(id)),
-    };
 }

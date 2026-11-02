@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <!-- Plain resource names ("even-a.dfa.json") so ExampleCatalog can find a file from its id. -->
+    <EmbeddedResource Include="Examples\*.dfa.json" LogicalName="%(Filename)%(Extension)" />
+  </ItemGroup>
+
 </Project>

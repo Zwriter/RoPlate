@@ -1,0 +1,42 @@
+{
+  "format": "dfa-simulator",
+  "version": 1,
+  "name": "Contains aba",
+  "alphabet": ["a", "b"],
+  "symbolClasses": [],
+  "states": ["c0", "c1", "c2", "c3"],
+  "start": "c0",
+  "finals": ["c3"],
+  "transitions": [
+    { "from": "c0", "symbol": "a", "to": "c1" },
+    { "from": "c0", "symbol": "b", "to": "c0" },
+    { "from": "c1", "symbol": "a", "to": "c1" },
+    { "from": "c1", "symbol": "b", "to": "c2" },
+    { "from": "c2", "symbol": "a", "to": "c3" },
+    { "from": "c2", "symbol": "b", "to": "c0" },
+    { "from": "c3", "symbol": "a", "to": "c3" },
+    { "from": "c3", "symbol": "b", "to": "c3" }
+  ],
+  "layout": {
+    "c0": { "x": 150, "y": 200 },
+    "c1": { "x": 350, "y": 200 },
+    "c2": { "x": 550, "y": 200 },
+    "c3": { "x": 750, "y": 200 }
+  },
+  "descriptions": {
+    "c0": "no progress toward aba",
+    "c1": "seen a",
+    "c2": "seen ab",
+    "c3": "seen aba: the word is accepted whatever follows"
+  },
+  "tests": [
+    { "word": "aba", "expected": true },
+    { "word": "aaba", "expected": true },
+    { "word": "babab", "expected": true },
+    { "word": "abaa", "expected": true },
+    { "word": "", "expected": false },
+    { "word": "ab", "expected": false },
+    { "word": "abba", "expected": false },
+    { "word": "bbb", "expected": false }
+  ]
+}
