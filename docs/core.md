@@ -69,12 +69,13 @@ The UI does not work with `Dfa` directly, but through `DfaDocument`, which also 
 | C-02 | `SymbolClass`, `SymbolOf`, `AddSymbolClass` | done |
 | C-03 | `DfaRun` (step-by-step run, `Append`/`RemoveLast`), `Accepts` | done |
 | C-04 | `DfaValidator` | done |
-| C-05 | `DfaDocument` (except `CompleteWithTrap`, which is C-10) | done |
+| C-05 | `DfaDocument` | done |
 | C-06 | `DfaJson` (read/write `.dfa.json`, `LoadFile`/`SaveFile`) | done |
 | C-07 | `ExampleCatalog` + examples 1–6 | done |
 | C-08 | `BatchTester` | done |
 | C-09 | `DocumentHistory` (undo/redo) | done |
-| C-10 … C-13 | trap state, generator | stub |
+| C-10 | `CompleteWithTrap` (trap state) | done |
+| C-11 … C-13 | δ table, coverage, generator | stub |
 
 ### Adding an example
 

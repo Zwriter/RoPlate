@@ -106,6 +106,7 @@ public sealed class Dfa
 | removing a used symbol | `Symbol '{symbol}' is used in {n} transitions. Remove them first.` |
 | removing a missing transition | `From {from} there is no transition on '{symbol}'.` |
 | removing a missing arrow (`DfaDocument.RemoveEdge`) | `From {from} there is no transition to {to}.` |
+| completing an already complete automaton (`DfaDocument.CompleteWithTrap`) | `The automaton is already complete.` |
 
 ---
 
