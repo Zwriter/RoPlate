@@ -208,10 +208,11 @@ public static class DfaValidator
 | `NO_START` | Error | `The automaton has no start state.` |
 | `NO_STATES` | Error | `The automaton has no states.` |
 | `EMPTY_ALPHABET` | Error | `The alphabet is empty.` |
-| `CLASS_OVERLAP` | Error | `Classes '{a}' and '{b}' share characters.` |
 | `UNREACHABLE` | Warning | `State {state} cannot be reached from the start state.` |
 | `NO_FINAL` | Warning | `The automaton has no final states: it will reject every word.` |
 | `MISSING_TRANSITION` | Info | `From {state} the transition on '{symbol}' is missing.` |
+
+There is no code for overlapping symbol classes: `AddSymbolClass` refuses them (section 3), so a `Dfa` cannot contain them.
 
 The simulation starts only if there is no `Error` (step 1 of the simulation flow).
 
