@@ -69,7 +69,8 @@ The UI does not work with `Dfa` directly, but through `DfaDocument`, which also 
 | C-02 | `SymbolClass`, `SymbolOf`, `AddSymbolClass` | done |
 | C-03 | `DfaRun` (step-by-step run, `Append`/`RemoveLast`), `Accepts` | done |
 | C-04 | `DfaValidator` | done |
-| C-05 … C-13 | document, JSON, examples, batch, undo, trap state, generator | stub |
+| C-05 | `DfaDocument` (except `CompleteWithTrap`, which is C-10) | done |
+| C-06 … C-13 | JSON, examples, batch, undo, trap state, generator | stub |
 
 Until they are implemented, calls to the stubs throw `NotImplementedException`; work with a `Dfa` built in code, as above.
 

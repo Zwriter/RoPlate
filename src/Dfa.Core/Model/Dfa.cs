@@ -152,5 +152,5 @@ public sealed partial class Dfa
             : OpResult.Success;
     }
 
-    private static OpResult StateNotFound(string name) => OpResult.Fail($"State '{name}' does not exist.");
+    internal static OpResult StateNotFound(string name) => OpResult.Fail($"State '{name}' does not exist.");
 }
