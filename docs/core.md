@@ -67,7 +67,8 @@ The UI does not work with `Dfa` directly, but through `DfaDocument`, which also 
 | C-00 | the solution, the contract stubs | done |
 | C-01 | `Dfa`: the model and editing | done |
 | C-02 | `SymbolClass`, `SymbolOf`, `AddSymbolClass` | done |
-| C-03 … C-13 | run, validator, document, JSON, examples, batch, undo, trap state, generator | stub |
+| C-03 | `DfaRun` (step-by-step run, `Append`/`RemoveLast`), `Accepts` | done |
+| C-04 … C-13 | validator, document, JSON, examples, batch, undo, trap state, generator | stub |
 
 Until they are implemented, calls to the stubs throw `NotImplementedException`; work with a `Dfa` built in code, as above.
 
