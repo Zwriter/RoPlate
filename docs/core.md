@@ -72,7 +72,8 @@ The UI does not work with `Dfa` directly, but through `DfaDocument`, which also 
 | C-05 | `DfaDocument` (except `CompleteWithTrap`, which is C-10) | done |
 | C-06 | `DfaJson` (read/write `.dfa.json`, `LoadFile`/`SaveFile`) | done |
 | C-07 | `ExampleCatalog` + examples 1–6 | done |
-| C-08 … C-13 | batch, undo, trap state, generator | stub |
+| C-08 | `BatchTester` | done |
+| C-09 … C-13 | undo, trap state, generator | stub |
 
 ### Adding an example
 
