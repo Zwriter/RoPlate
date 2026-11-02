@@ -2,19 +2,71 @@ namespace Dfa.Core.Documents;
 
 public sealed class DocumentHistory
 {
-    public DocumentHistory(DfaDocument document, int capacity = 100) => throw new NotImplementedException();
+    private readonly DfaDocument _document;
+    private readonly int _capacity;
+    private readonly List<DfaDocument> _undo = [];
+    private readonly List<DfaDocument> _redo = [];
 
-    public bool CanUndo => throw new NotImplementedException();
+    // A copy of the document as it is now: the "before" snapshot of the next change.
+    private DfaDocument _current;
 
-    public bool CanRedo => throw new NotImplementedException();
+    public DocumentHistory(DfaDocument document, int capacity = 100)
+    {
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(capacity);
+        _document = document;
+        _capacity = capacity;
+        _current = document.Clone();
+        document.Changed += OnDocumentChanged;
+    }
 
-#pragma warning disable CS0067 // stub: raised once DocumentHistory is implemented (C-09)
+    public bool CanUndo => _undo.Count > 0;
+
+    public bool CanRedo => _redo.Count > 0;
+
     public event EventHandler? Changed;
-#pragma warning restore CS0067
 
-    public void Undo() => throw new NotImplementedException();
+    public void Undo() => Step(_undo, _redo);
 
-    public void Redo() => throw new NotImplementedException();
+    public void Redo() => Step(_redo, _undo);
 
-    public void Clear() => throw new NotImplementedException();
+    public void Clear()
+    {
+        _undo.Clear();
+        _redo.Clear();
+        _current = _document.Clone();
+        Changed?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void OnDocumentChanged(object? sender, DocumentChangedEventArgs e)
+    {
+        // Reset comes from our own Undo/Redo (RestoreFrom), which is not a new edit.
+        if (e.Kind == DocumentChangeKind.Reset)
+        {
+            return;
+        }
+
+        _undo.Add(_current);
+        if (_undo.Count > _capacity)
+        {
+            _undo.RemoveAt(0);
+        }
+
+        _redo.Clear();
+        _current = _document.Clone();
+        Changed?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void Step(List<DfaDocument> from, List<DfaDocument> to)
+    {
+        if (from.Count == 0)
+        {
+            return;
+        }
+
+        to.Add(_current);
+        _current = from[^1];
+        from.RemoveAt(from.Count - 1);
+        _document.RestoreFrom(_current);
+        Changed?.Invoke(this, EventArgs.Empty);
+    }
 }
