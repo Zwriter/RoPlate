@@ -1,0 +1,32 @@
+{
+  "format": "dfa-simulator",
+  "version": 1,
+  "name": "Even number of a",
+  "alphabet": ["a", "b"],
+  "symbolClasses": [],
+  "states": ["q0", "q1"],
+  "start": "q0",
+  "finals": ["q0"],
+  "transitions": [
+    { "from": "q0", "symbol": "a", "to": "q1" },
+    { "from": "q0", "symbol": "b", "to": "q0" },
+    { "from": "q1", "symbol": "a", "to": "q0" },
+    { "from": "q1", "symbol": "b", "to": "q1" }
+  ],
+  "layout": {
+    "q0": { "x": 200, "y": 200 },
+    "q1": { "x": 450, "y": 200 }
+  },
+  "descriptions": {
+    "q0": "seen an even number of a",
+    "q1": "seen an odd number of a"
+  },
+  "tests": [
+    { "word": "", "expected": true },
+    { "word": "b", "expected": true },
+    { "word": "aa", "expected": true },
+    { "word": "abba", "expected": true },
+    { "word": "a", "expected": false },
+    { "word": "bab", "expected": false }
+  ]
+}

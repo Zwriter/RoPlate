@@ -1,0 +1,36 @@
+{
+  "format": "dfa-simulator",
+  "version": 1,
+  "name": "Length a multiple of 3",
+  "alphabet": ["a", "b"],
+  "symbolClasses": [],
+  "states": ["l0", "l1", "l2"],
+  "start": "l0",
+  "finals": ["l0"],
+  "transitions": [
+    { "from": "l0", "symbol": "a", "to": "l1" },
+    { "from": "l0", "symbol": "b", "to": "l1" },
+    { "from": "l1", "symbol": "a", "to": "l2" },
+    { "from": "l1", "symbol": "b", "to": "l2" },
+    { "from": "l2", "symbol": "a", "to": "l0" },
+    { "from": "l2", "symbol": "b", "to": "l0" }
+  ],
+  "layout": {
+    "l0": { "x": 300, "y": 120 },
+    "l1": { "x": 500, "y": 300 },
+    "l2": { "x": 100, "y": 300 }
+  },
+  "descriptions": {
+    "l0": "length read so far is a multiple of 3",
+    "l1": "length read so far gives remainder 1 when divided by 3",
+    "l2": "length read so far gives remainder 2 when divided by 3"
+  },
+  "tests": [
+    { "word": "", "expected": true },
+    { "word": "aaa", "expected": true },
+    { "word": "abbaba", "expected": true },
+    { "word": "a", "expected": false },
+    { "word": "ab", "expected": false },
+    { "word": "abab", "expected": false }
+  ]
+}

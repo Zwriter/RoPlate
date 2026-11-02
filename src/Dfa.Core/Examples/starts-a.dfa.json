@@ -1,0 +1,36 @@
+{
+  "format": "dfa-simulator",
+  "version": 1,
+  "name": "Starts with a",
+  "alphabet": ["a", "b"],
+  "symbolClasses": [],
+  "states": ["q0", "q1", "trap"],
+  "start": "q0",
+  "finals": ["q1"],
+  "transitions": [
+    { "from": "q0", "symbol": "a", "to": "q1" },
+    { "from": "q0", "symbol": "b", "to": "trap" },
+    { "from": "q1", "symbol": "a", "to": "q1" },
+    { "from": "q1", "symbol": "b", "to": "q1" },
+    { "from": "trap", "symbol": "a", "to": "trap" },
+    { "from": "trap", "symbol": "b", "to": "trap" }
+  ],
+  "layout": {
+    "q0": { "x": 200, "y": 200 },
+    "q1": { "x": 450, "y": 120 },
+    "trap": { "x": 450, "y": 300 }
+  },
+  "descriptions": {
+    "q0": "nothing read yet",
+    "q1": "the word started with a",
+    "trap": "the word started with b: it can never be accepted"
+  },
+  "tests": [
+    { "word": "a", "expected": true },
+    { "word": "ab", "expected": true },
+    { "word": "abba", "expected": true },
+    { "word": "", "expected": false },
+    { "word": "b", "expected": false },
+    { "word": "ba", "expected": false }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "format": "dfa-simulator",
+  "version": 1,
+  "name": "Binary numbers divisible by 3",
+  "alphabet": ["0", "1"],
+  "symbolClasses": [],
+  "states": ["r0", "r1", "r2"],
+  "start": "r0",
+  "finals": ["r0"],
+  "transitions": [
+    { "from": "r0", "symbol": "0", "to": "r0" },
+    { "from": "r0", "symbol": "1", "to": "r1" },
+    { "from": "r1", "symbol": "0", "to": "r2" },
+    { "from": "r1", "symbol": "1", "to": "r0" },
+    { "from": "r2", "symbol": "0", "to": "r1" },
+    { "from": "r2", "symbol": "1", "to": "r2" }
+  ],
+  "layout": {
+    "r0": { "x": 150, "y": 200 },
+    "r1": { "x": 400, "y": 200 },
+    "r2": { "x": 650, "y": 200 }
+  },
+  "descriptions": {
+    "r0": "the number read so far gives remainder 0 when divided by 3",
+    "r1": "the number read so far gives remainder 1 when divided by 3",
+    "r2": "the number read so far gives remainder 2 when divided by 3"
+  },
+  "tests": [
+    { "word": "0", "expected": true },
+    { "word": "11", "expected": true },
+    { "word": "110", "expected": true },
+    { "word": "1001", "expected": true },
+    { "word": "1", "expected": false },
+    { "word": "10", "expected": false },
+    { "word": "100", "expected": false }
+  ]
+}

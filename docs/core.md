@@ -71,7 +71,12 @@ The UI does not work with `Dfa` directly, but through `DfaDocument`, which also 
 | C-04 | `DfaValidator` | done |
 | C-05 | `DfaDocument` (except `CompleteWithTrap`, which is C-10) | done |
 | C-06 | `DfaJson` (read/write `.dfa.json`, `LoadFile`/`SaveFile`) | done |
-| C-07 … C-13 | examples, batch, undo, trap state, generator | stub |
+| C-07 | `ExampleCatalog` + examples 1–6 | done |
+| C-08 … C-13 | batch, undo, trap state, generator | stub |
+
+### Adding an example
+
+Drop `{id}.dfa.json` into `src/Dfa.Core/Examples/`: every `*.dfa.json` there is embedded automatically. `ExampleCatalog.All` lists an id from the contract table only once its file exists, so `license-plate` appears as soon as P3 adds it, with no code change. The catalog tests then check that it loads, has no validator issues, has a position and description for every state, and passes its own `tests`.
 
 Until they are implemented, calls to the stubs throw `NotImplementedException`; work with a `Dfa` built in code, as above.
 
