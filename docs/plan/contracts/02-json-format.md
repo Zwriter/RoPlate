@@ -90,10 +90,15 @@ It does not throw and does not freeze the app (the robustness requirement). It r
 | a transition uses a symbol outside Σ | error | `Symbol '{symbol}' is not in the alphabet.` |
 | two transitions on the same `(from, symbol)` | error | `From {from} there is already a transition on '{symbol}'.` |
 | `start` or `finals` with a missing state | error | `State '{s}' does not exist.` |
+| a required field is missing, or any field has the wrong JSON type | error | `Field '{field}' is missing or has the wrong type.` (`{field}` is a path such as `states[1]` or `layout.q0.x`) |
+| a class in `symbolClasses` is not in `alphabet` | error | `Symbol '{name}' is not in the alphabet.` |
+| `alphabet`, `states`, `start` or `finals` break a `Dfa` rule (e.g. overlapping classes, a 2-character simple symbol) | error | the matching message from contract 1, section 3 |
 | state without `layout` | **accepted** | gets an automatic position |
 | `layout`/`descriptions` for a missing state | **accepted** | the entry is ignored |
+| `LoadFile`: the file cannot be read | error | `Could not open the file: {reason}` |
+| `SaveFile`: the file cannot be written | `OpResult.Fail` | `Could not save the file: {reason}` (the existing file is left untouched) |
 
-If there is at least one error, `Document` is `null` and the UI shows all the errors.
+`{reason}` is the operating system's message. If there is at least one error, `Document` is `null` and the UI shows all the errors. Format and version errors stop reading immediately; all other errors are collected.
 
 ---
 

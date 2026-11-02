@@ -22,3 +22,10 @@ dotnet_naming_style.underscore_camel.capitalization = camel_case
 # usings inside the namespace: outside it, `Dfa` resolves to the root namespace instead of Dfa.Core.Model.Dfa (CS0118)
 csharp_using_directive_placement = inside_namespace:warning
 dotnet_diagnostic.IDE0130.severity = warning
+# constants are PascalCase (constitution V); listed with a modifier so it wins over the private-field rule
+dotnet_naming_rule.constants_pascal.symbols = constants
+dotnet_naming_rule.constants_pascal.style = pascal
+dotnet_naming_rule.constants_pascal.severity = warning
+dotnet_naming_symbols.constants.applicable_kinds = field
+dotnet_naming_symbols.constants.required_modifiers = const
+dotnet_naming_style.pascal.capitalization = pascal_case
