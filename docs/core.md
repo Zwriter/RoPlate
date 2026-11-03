@@ -75,7 +75,8 @@ The UI does not work with `Dfa` directly, but through `DfaDocument`, which also 
 | C-08 | `BatchTester` | done |
 | C-09 | `DocumentHistory` (undo/redo) | done |
 | C-10 | `CompleteWithTrap` (trap state) | done |
-| C-11 … C-13 | δ table, coverage, generator | stub |
+| C-11 | the δ table panel (`TransitionTablePanel`, in `Dfa.App`) | done (ED-11 editable cells: not done) |
+| C-12 … C-13 | coverage, generator | stub |
 
 ### Adding an example
 

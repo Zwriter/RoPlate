@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Dfa.Core\Dfa.Core.csproj" />
+    <ProjectReference Include="..\..\src\Dfa.App\Dfa.App.csproj" />
   </ItemGroup>
 
 </Project>
