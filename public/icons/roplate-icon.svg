@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2B2F6B"/>
+      <stop offset="1" stop-color="#151839"/>
+    </linearGradient>
+    <linearGradient id="plate" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#E6E8F0"/>
+    </linearGradient>
+    <filter id="sh" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#000" flood-opacity="0.35"/>
+    </filter>
+    <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="3" markerHeight="3" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1E2250"/>
+    </marker>
+  </defs>
+
+  <!-- app tile -->
+  <rect x="16" y="16" width="480" height="480" rx="108" fill="url(#bg)"/>
+
+  <!-- plate -->
+  <g filter="url(#sh)">
+    <rect x="56" y="156" width="400" height="200" rx="28" fill="url(#plate)" stroke="#1E2250" stroke-width="10"/>
+  </g>
+  <!-- country band -->
+  <path d="M61,184 a23,23 0 0 1 23,-23 h60 v190 h-60 a23,23 0 0 1 -23,-23 z" fill="#1F4FD1"/>
+  <text x="113" y="318" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-weight="700" font-size="34" fill="#FFFFFF">RO</text>
+  <!-- small ring in band (generic, not a flag) -->
+  <circle cx="113" cy="222" r="20" fill="none" stroke="#FFD23F" stroke-width="7"/>
+
+  <!-- automaton on the plate -->
+  <!-- start arrow -->
+  <line x1="160" y1="256" x2="182" y2="256" stroke="#1E2250" stroke-width="9" stroke-linecap="round" marker-end="url(#ah)"/>
+  <!-- q0 -->
+  <circle cx="220" cy="256" r="28" fill="#FFFFFF" stroke="#1E2250" stroke-width="10"/>
+  <!-- q0 -> q1 -->
+  <line x1="252" y1="256" x2="300" y2="256" stroke="#1E2250" stroke-width="9" stroke-linecap="round" marker-end="url(#ah)"/>
+  <!-- q1 -->
+  <circle cx="336" cy="256" r="28" fill="#FFFFFF" stroke="#1E2250" stroke-width="10"/>
+  <!-- self-loop on q1 -->
+  <path d="M322,229 C306,182 366,182 353,226" fill="none" stroke="#1E2250" stroke-width="9" stroke-linecap="round" marker-end="url(#ah)"/>
+  <!-- q1 -> qf -->
+  <line x1="368" y1="256" x2="383" y2="256" stroke="#1E2250" stroke-width="9" stroke-linecap="round"/>
+  <!-- final state (double ring, accent) -->
+  <circle cx="410" cy="256" r="26" fill="#22C55E" stroke="#1E2250" stroke-width="9"/>
+  <circle cx="410" cy="256" r="14" fill="none" stroke="#FFFFFF" stroke-width="6"/>
+</svg>

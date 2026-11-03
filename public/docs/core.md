@@ -77,13 +77,11 @@ The UI does not work with `Dfa` directly, but through `DfaDocument`, which also 
 | C-10 | `CompleteWithTrap` (trap state) | done |
 | C-11 | the δ table panel (`TransitionTablePanel`, in `Dfa.App`) | done (ED-11 editable cells: not done) |
 | C-12 | coverage of `Dfa.Core` ≥ 70% (checked in CI) | done |
-| C-13 | `LanguageGenerator` | stub |
+| C-13 | `LanguageGenerator` (bonus, SI-11) | done |
 
 ### Adding an example
 
 Drop `{id}.dfa.json` into `src/Dfa.Core/Examples/`: every `*.dfa.json` there is embedded automatically. `ExampleCatalog.All` lists an id from the contract table only once its file exists, so `license-plate` appears as soon as P3 adds it, with no code change. The catalog tests then check that it loads, has no validator issues, has a position and description for every state, and passes its own `tests`.
-
-Until they are implemented, calls to the stubs throw `NotImplementedException`; work with a `Dfa` built in code, as above.
 
 ## 4. Commands
 
