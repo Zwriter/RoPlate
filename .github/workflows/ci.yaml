@@ -20,7 +20,14 @@ jobs:
 
       - run: dotnet build DfaSimulator.slnx --no-restore
 
-      - run: dotnet test DfaSimulator.slnx --no-build
+      - run: dotnet test DfaSimulator.slnx --no-build --settings tests/Dfa.Tests/coverage.runsettings --results-directory coverage
+
+      # Constitution quality gate: line coverage of Dfa.Core must stay at or above 70%.
+      - name: Check Dfa.Core coverage
+        run: |
+          rate=$(grep -o -m1 'line-rate="[0-9.]*"' coverage/*/coverage.cobertura.xml | head -1 | cut -d'"' -f2)
+          echo "Dfa.Core line coverage: $rate"
+          awk -v r="$rate" 'BEGIN { exit !(r >= 0.70) }'
 
       # Constitution quality gate: formatting must match .editorconfig.
       - run: dotnet format DfaSimulator.slnx --verify-no-changes --no-restore

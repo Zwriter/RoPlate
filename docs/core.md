@@ -76,7 +76,8 @@ The UI does not work with `Dfa` directly, but through `DfaDocument`, which also 
 | C-09 | `DocumentHistory` (undo/redo) | done |
 | C-10 | `CompleteWithTrap` (trap state) | done |
 | C-11 | the δ table panel (`TransitionTablePanel`, in `Dfa.App`) | done (ED-11 editable cells: not done) |
-| C-12 … C-13 | coverage, generator | stub |
+| C-12 | coverage of `Dfa.Core` ≥ 70% (checked in CI) | done |
+| C-13 | `LanguageGenerator` | stub |
 
 ### Adding an example
 
@@ -90,4 +91,7 @@ Until they are implemented, calls to the stubs throw `NotImplementedException`; 
 dotnet build DfaSimulator.slnx
 dotnet test DfaSimulator.slnx
 dotnet format DfaSimulator.slnx --verify-no-changes
+
+# line coverage of Dfa.Core (CI fails below 70%); the report is coverage/*/coverage.cobertura.xml
+dotnet test DfaSimulator.slnx --settings tests/Dfa.Tests/coverage.runsettings --results-directory coverage
 ```
