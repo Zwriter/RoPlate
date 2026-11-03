@@ -78,7 +78,7 @@ dotnet test --collect:"XPlat Code Coverage"
 ```
 
 ### C-13 · The word generator (bonus)
-- **Week:** 5 · **Requirements:** SI-11 · Breadth-first search (BFS); see [../theory/04-simulator-and-architecture.md](../theory/04-simulator-and-architecture.md#42-the-generator).
+- **Week:** 5 · **Requirements:** SI-11 · Breadth-first search (BFS);
 - **Tests:** for `even-a`, the first 4 are `"", "b", "aa", "bb"`.
 
 ### Shared
