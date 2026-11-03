@@ -55,7 +55,7 @@ namespace Dfa.App.Services;
 
 public sealed partial class DocumentSession : ObservableObject
 {
-    [ObservableProperty] private DfaDocument document = DfaDocument.CreateEmpty();
+    public DfaDocument Document { get; }                    // one live instance for the whole session
     [ObservableProperty] private string? filePath;          // null = not saved yet
     [ObservableProperty] private bool isDirty;              // unsaved changes (shown with * in the title)
 
@@ -71,7 +71,13 @@ public sealed partial class DocumentSession : ObservableObject
 }
 ```
 
-**Rule SI-07:** the simulation panel listens to `DocumentEdited` and **resets** when `Kind` is `Structure` or `Reset`, showing the message `The automaton was modified: the simulation was reset.` Moving states (`Layout`) does **not** reset the simulation.
+**Rules for `Replace`:**
+
+1. **Replace copies; it does not adopt.** `Replace` copies the given document into the live `Document` (`RestoreFrom`). The object passed in does not become the live document, and edits made to it afterwards are lost. `OpenInSimulator`'s `Replace(document.Clone(), null)` still works; its `Clone()` is redundant but harmless.
+2. **Replace is not an edit.** `Replace` does **not** raise `DocumentEdited` and does not set `IsDirty` (it sets it to `false`). Undo/redo also restore through `RestoreFrom`, but they **are** edits: they forward `DocumentEdited` with `Kind = Reset` and set `IsDirty = true`.
+3. **The canvas still gets an event.** `RestoreFrom` raises `Document.Changed(Reset)` on every replacement, which is how `DfaCanvas` knows to redraw. Only `DocumentSession` holds back the forwarding. `DocumentHistory` ignores `Reset`, so no undo step is recorded.
+
+**Rule SI-07:** the simulation panel listens to `DocumentEdited` and **resets** when `Kind` is `Structure` or `Reset`, showing the message `The automaton was modified: the simulation was reset.` Moving states (`Layout`) does **not** reset the simulation. SI-07 also covers `Replace` (New / Open / Examples): the simulation panel also listens to `DocumentReplaced` and resets **without** that message, because the automaton was replaced, not modified.
 
 ---
 

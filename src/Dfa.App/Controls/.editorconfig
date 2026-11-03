@@ -1,0 +1,3 @@
+# Controls keep the namespace Dfa.App.Controls (contract 3); a namespace per control folder would clash with the class name.
+[*.cs]
+dotnet_diagnostic.IDE0130.severity = none
