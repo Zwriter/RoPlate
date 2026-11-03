@@ -1,0 +1,83 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:Dfa.App.Views.TransitionTable"
+             x:Class="Dfa.App.Views.TransitionTable.TransitionTablePanel"
+             x:DataType="vm:TransitionTableViewModel"
+             x:CompileBindings="True">
+
+    <UserControl.Styles>
+        <Style Selector="Border.cell">
+            <Setter Property="Width" Value="64" />
+            <Setter Property="Padding" Value="4,2" />
+            <Setter Property="BorderBrush" Value="{DynamicResource SystemControlForegroundBaseLowBrush}" />
+            <Setter Property="BorderThickness" Value="0,0,1,1" />
+        </Style>
+        <Style Selector="Border.header > TextBlock">
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+        <!-- Missing cells also show "—", so the gap is not conveyed by color alone. -->
+        <Style Selector="Border.missing">
+            <Setter Property="Background" Value="{DynamicResource Brush.MissingCell}" />
+        </Style>
+        <Style Selector="Border.cell > TextBlock">
+            <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+    </UserControl.Styles>
+
+    <DockPanel>
+        <TextBlock DockPanel.Dock="Top" Margin="0,0,0,4" FontWeight="SemiBold"
+                   Text="Transition table δ   (→ start, * final, — missing)" />
+
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Border Classes="cell header">
+                        <TextBlock Text="δ" />
+                    </Border>
+                    <ItemsControl ItemsSource="{Binding Symbols}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="x:String">
+                                <Border Classes="cell header">
+                                    <TextBlock Text="{Binding}" ToolTip.Tip="{Binding}" />
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+
+                <ItemsControl ItemsSource="{Binding Rows}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="vm:TransitionRow">
+                            <StackPanel Orientation="Horizontal">
+                                <Border Classes="cell header">
+                                    <TextBlock Text="{Binding Label}" ToolTip.Tip="{Binding Label}" />
+                                </Border>
+                                <ItemsControl ItemsSource="{Binding Targets}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel Orientation="Horizontal" />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate x:DataType="x:String">
+                                            <Border Classes="cell"
+                                                    Classes.missing="{Binding Converter={x:Static ObjectConverters.IsNull}}">
+                                                <TextBlock Text="{Binding TargetNullValue=—}" />
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>
